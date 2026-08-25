@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Send us your idea — SnakesNladdersCo</title>
+<meta name="description" content="Free design service from SnakesNladdersCo. Tell us the reptile part you wish existed and we'll design it for you, free.">
+<style>
+  :root {
+    --ink: #3a3123;
+    --sepia: #6d5f49;
+    --cart: #7c6d52;
+    --paper: #f6efdd;
+    --card: #fbf6e9;
+    --accent: #958657;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: Baskerville, "Iowan Old Style", Georgia, "Times New Roman", serif;
+    color: var(--ink);
+    background: var(--paper) url("paper.jpg") center / cover fixed no-repeat;
+    min-height: 100vh;
+    padding: 22px 14px 40px;
+    display: flex; justify-content: center;
+  }
+  .plate {
+    width: 100%; max-width: 540px;
+    border: 1px solid var(--cart);
+    padding: 5px;
+    background: rgba(251, 246, 233, 0.6);
+    height: fit-content;
+  }
+  .plate-in {
+    border: 2px solid var(--cart);
+    background: var(--card);
+    overflow: hidden;
+  }
+  .hero {
+    height: 170px;
+    background: url("gecko.jpg") center 32% / cover no-repeat;
+    border-bottom: 1px solid var(--cart);
+  }
+  .content { padding: 26px 24px 30px; }
+
+  .overline {
+    font-size: 11px; letter-spacing: 3.5px; text-transform: uppercase;
+    color: var(--sepia); text-align: center;
+  }
+  h1 {
+    font-style: italic; font-weight: normal; font-size: 30px;
+    text-align: center; margin-top: 10px; line-height: 1.15;
+  }
+  .sub {
+    font-size: 15.5px; line-height: 1.55; color: var(--sepia);
+    text-align: center; margin: 12px auto 0; max-width: 420px;
+  }
+
+  form { margin-top: 26px; }
+  .label {
+    font-size: 12px; letter-spacing: 2.5px; text-transform: uppercase;
+    color: var(--sepia); margin-bottom: 9px;
+  }
+  .hint { font-weight: normal; text-transform: none; letter-spacing: 0; font-style: italic; font-size: 12.5px; }
+
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 22px; }
+  .chip {
+    font-family: inherit; font-size: 14.5px; color: var(--ink);
+    background: transparent; border: 1px solid var(--cart);
+    padding: 8px 14px; border-radius: 999px; cursor: pointer;
+    transition: background .15s, color .15s, transform .1s;
+  }
+  .chip:active { transform: scale(0.96); }
+  .chip.on { background: var(--ink); color: var(--card); border-color: var(--ink); }
+
+  textarea, input[type=text] {
+    width: 100%; font-family: inherit; font-size: 16.5px; color: var(--ink);
+    background: #fffdf6; border: 1px solid var(--cart); border-radius: 3px;
+    padding: 13px 14px; outline: none;
+  }
+  textarea:focus, input[type=text]:focus { border-color: var(--ink); box-shadow: 0 0 0 1px var(--ink); }
+  textarea { min-height: 150px; resize: vertical; line-height: 1.5; }
+  ::placeholder { color: #a3947a; font-style: italic; }
+  .field { margin-bottom: 22px; }
+  .hp { position: absolute; left: -5000px; }
+
+  button.send {
+    width: 100%; font-family: inherit; font-size: 18px; letter-spacing: 0.5px;
+    color: var(--card); background: var(--ink);
+    border: 1px solid var(--ink); border-radius: 3px;
+    padding: 15px 16px; cursor: pointer; transition: opacity .15s, transform .1s;
+  }
+  button.send:active { transform: scale(0.99); }
+  button.send:disabled { opacity: 0.55; cursor: default; }
+
+  .err {
+    display: none; margin-top: 14px; font-size: 14.5px; line-height: 1.5;
+    color: #7a3b2e; text-align: center;
+  }
+  .err a { color: #7a3b2e; }
+
+  .done { display: none; text-align: center; padding: 10px 0 6px; }
+  .done h2 { font-style: italic; font-weight: normal; font-size: 27px; }
+  .done p { font-size: 15.5px; color: var(--sepia); line-height: 1.6; margin: 13px auto 0; max-width: 380px; }
+  .done .stamp {
+    display: inline-block; margin-top: 20px;
+    border: 1px solid var(--cart); padding: 4px;
+  }
+  .done .stamp span {
+    display: inline-block; border: 2px solid var(--cart); padding: 8px 18px;
+    font-style: italic; font-size: 15px;
+  }
+  .done a.shop {
+    display: inline-block; margin-top: 24px; font-size: 15.5px; color: var(--ink);
+  }
+
+  .foot {
+    margin-top: 26px; padding-top: 16px; border-top: 1px solid rgba(124,109,82,.45);
+    text-align: center; font-size: 11px; letter-spacing: 2.5px;
+    text-transform: uppercase; color: var(--sepia);
+  }
+  .foot a { color: var(--sepia); text-decoration: none; }
+</style>
+</head>
+<body>
+  <div class="plate"><div class="plate-in">
+    <div class="hero"></div>
+    <div class="content">
+
+      <div id="ask">
+        <div class="overline">SnakesNladdersCo &middot; Free design service</div>
+        <h1>Tell us what to make next.</h1>
+        <p class="sub">Every product we sell began as a keeper&rsquo;s idea.
+        Describe the part you wish existed and we&rsquo;ll design it for you &mdash; free,
+        no strings.</p>
+
+        <form id="f" novalidate>
+          <div class="label">It&rsquo;s a&hellip; <span class="hint">(optional)</span></div>
+          <div class="chips" id="chips">
+            <button type="button" class="chip">Perch or mount</button>
+            <button type="button" class="chip">Hide or cave</button>
+            <button type="button" class="chip">Feeding ledge</button>
+            <button type="button" class="chip">Enclosure tidy</button>
+            <button type="button" class="chip">Something else entirely</button>
+          </div>
+
+          <div class="field">
+            <div class="label">Your idea</div>
+            <textarea id="idea" maxlength="2000" placeholder="The part you wish existed &mdash; what it does, roughly how big, what enclosure or animal it&rsquo;s for&hellip; scribble away, rough is fine."></textarea>
+          </div>
+
+          <div class="field">
+            <div class="label">Where can we reply?</div>
+            <input type="text" id="contact" maxlength="200" placeholder="Etsy username or email" autocomplete="email">
+          </div>
+
+          <input type="text" class="hp" id="website" tabindex="-1" autocomplete="off">
+
+          <button type="submit" class="send" id="go">Send it to the workshop &rarr;</button>
+          <div class="err" id="err">That didn&rsquo;t send &mdash; sorry. Please
+            <a href="https://www.etsy.com/shop/SnakesNladdersCo" target="_blank" rel="noopener">message us on Etsy</a> instead.</div>
+        </form>
+      </div>
+
+      <div class="done" id="done">
+        <h2>Got it &mdash; thank you.</h2>
+        <p>We read every single idea that comes in. If yours is buildable,
+        you&rsquo;ll hear from us &mdash; and if we end up making it, you&rsquo;ll have
+        improved life for keepers everywhere.</p>
+        <div class="stamp"><span>Filed under: excellent ideas</span></div>
+        <br>
+        <a class="shop" href="https://www.etsy.com/shop/SnakesNladdersCo">Visit our Etsy shop &rarr;</a>
+      </div>
+
+      <div class="foot"><a href="https://www.etsy.com/shop/SnakesNladdersCo">SnakesNladdersCo</a> &middot; 3D&#8209;printed enclosure hardware &middot; Made to order in the UK</div>
+    </div>
+  </div></div>
+
+<script>
+  var TOPIC = "snakes-ideas-f6795cfd";
+
+  var chips = document.querySelectorAll("#chips .chip");
+  chips.forEach(function (c) {
+    c.addEventListener("click", function () { c.classList.toggle("on"); });
+  });
+
+  document.getElementById("f").addEventListener("submit", function (e) {
+    e.preventDefault();
+    var idea = document.getElementById("idea").value.trim();
+    var contact = document.getElementById("contact").value.trim();
+    var err = document.getElementById("err");
+    var go = document.getElementById("go");
+    err.style.display = "none";
+
+    if (document.getElementById("website").value) return; // bot
+    if (!idea) { document.getElementById("idea").focus(); return; }
+    if (!contact) { document.getElementById("contact").focus(); return; }
+
+    var picked = [];
+    chips.forEach(function (c) { if (c.classList.contains("on")) picked.push(c.textContent); });
+
+    var body = "IDEA:\n" + idea +
+      "\n\nTYPE: " + (picked.length ? picked.join(", ") : "-") +
+      "\nCONTACT: " + contact;
+
+    go.disabled = true; go.textContent = "Sending…";
+
+    fetch("https://ntfy.sh/" + TOPIC, {
+      method: "POST",
+      headers: { "Title": "New part idea (SnakesNladders)", "Tags": "bulb", "Priority": "default" },
+      body: body
+    }).then(function (r) {
+      if (!r.ok) throw new Error(r.status);
+      document.getElementById("ask").style.display = "none";
+      document.getElementById("done").style.display = "block";
+      window.scrollTo(0, 0);
+    }).catch(function () {
+      err.style.display = "block";
+      go.disabled = false; go.textContent = "Send it to the workshop →";
+    });
+  });
+</script>
+</body>
+</html>
