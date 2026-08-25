@@ -72,12 +72,12 @@
   .chip:active { transform: scale(0.96); }
   .chip.on { background: var(--ink); color: var(--card); border-color: var(--ink); }
 
-  textarea, input[type=text] {
+  textarea, input[type=text], input[type=email] {
     width: 100%; font-family: inherit; font-size: 16.5px; color: var(--ink);
     background: #fffdf6; border: 1px solid var(--cart); border-radius: 3px;
     padding: 13px 14px; outline: none;
   }
-  textarea:focus, input[type=text]:focus { border-color: var(--ink); box-shadow: 0 0 0 1px var(--ink); }
+  textarea:focus, input[type=text]:focus, input[type=email]:focus { border-color: var(--ink); box-shadow: 0 0 0 1px var(--ink); }
   textarea { min-height: 150px; resize: vertical; line-height: 1.5; }
   ::placeholder { color: #a3947a; font-style: italic; }
   .field { margin-bottom: 22px; }
@@ -134,23 +134,14 @@
         no strings.</p>
 
         <form id="f" novalidate>
-          <div class="label">It&rsquo;s a&hellip; <span class="hint">(optional)</span></div>
-          <div class="chips" id="chips">
-            <button type="button" class="chip">Perch or mount</button>
-            <button type="button" class="chip">Hide or cave</button>
-            <button type="button" class="chip">Feeding ledge</button>
-            <button type="button" class="chip">Enclosure tidy</button>
-            <button type="button" class="chip">Something else entirely</button>
-          </div>
-
           <div class="field">
             <div class="label">Your idea</div>
-            <textarea id="idea" maxlength="2000" placeholder="The part you wish existed &mdash; what it does, roughly how big, what enclosure or animal it&rsquo;s for&hellip; scribble away, rough is fine."></textarea>
+            <textarea id="idea" maxlength="2000"></textarea>
           </div>
 
           <div class="field">
-            <div class="label">Where can we reply?</div>
-            <input type="text" id="contact" maxlength="200" placeholder="Etsy username or email" autocomplete="email">
+            <div class="label">Email</div>
+            <input type="email" id="contact" maxlength="200" autocomplete="email" inputmode="email">
           </div>
 
           <input type="text" class="hp" id="website" tabindex="-1" autocomplete="off">
@@ -178,11 +169,6 @@
 <script>
   var TOPIC = "snakes-ideas-f6795cfd";
 
-  var chips = document.querySelectorAll("#chips .chip");
-  chips.forEach(function (c) {
-    c.addEventListener("click", function () { c.classList.toggle("on"); });
-  });
-
   document.getElementById("f").addEventListener("submit", function (e) {
     e.preventDefault();
     var idea = document.getElementById("idea").value.trim();
@@ -193,14 +179,9 @@
 
     if (document.getElementById("website").value) return; // bot
     if (!idea) { document.getElementById("idea").focus(); return; }
-    if (!contact) { document.getElementById("contact").focus(); return; }
+    if (!contact || contact.indexOf("@") < 0) { document.getElementById("contact").focus(); return; }
 
-    var picked = [];
-    chips.forEach(function (c) { if (c.classList.contains("on")) picked.push(c.textContent); });
-
-    var body = "IDEA:\n" + idea +
-      "\n\nTYPE: " + (picked.length ? picked.join(", ") : "-") +
-      "\nCONTACT: " + contact;
+    var body = "IDEA:\n" + idea + "\n\nEMAIL: " + contact;
 
     go.disabled = true; go.textContent = "Sending…";
 
